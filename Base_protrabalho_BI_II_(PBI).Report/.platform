@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Base_protrabalho_BI_II_(PBI)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "97f02c77-8c34-41e3-9e2c-84f445455ad2"
+  }
+}

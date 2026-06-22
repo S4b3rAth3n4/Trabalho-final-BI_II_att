@@ -1,0 +1,51 @@
+{
+  "config": "{\"version\":\"5.66\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU08\",\"type\":2,\"version\":{\"visual\":\"1.8.93\",\"report\":\"2.0.93\",\"page\":\"1.3.93\"}}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true,\"useEnhancedTooltips\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU08",
+            "path": "BaseThemes/CY24SU08.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Página 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "665a12023cd3a3d0c506",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"6592fb0801937ccc96de\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"width\":100,\"height\":40,\"z\":0}}],\"singleVisual\":{\"visualType\":\"actionButton\",\"drillFilterOtherVisuals\":true,\"objects\":{\"icon\":[{\"properties\":{\"shapeType\":{\"expr\":{\"Literal\":{\"Value\":\"'back'\"}}}},\"selector\":{\"id\":\"default\"}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'Back'\"}}}}}]}},\"howCreated\":\"InsertVisualButton\"}",
+          "filters": "[]",
+          "height": 40.00,
+          "width": 100.00,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"ae61cbc19884e60592c9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":50,\"y\":40,\"z\":1,\"width\":565.5555555555555,\"height\":300,\"tabOrder\":1}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Medidas.Total de GPUs\"},{\"queryRef\":\"Medidas.Preco Medio\"},{\"queryRef\":\"Medidas.Receita Total Estimada\"},{\"queryRef\":\"Medidas.Qtd Fabricantes\"},{\"queryRef\":\"Medidas.Memoria Media MB\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Total de GPUs\"},\"Name\":\"Medidas.Total de GPUs\",\"NativeReferenceName\":\"Total de GPUs\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Preco Medio\"},\"Name\":\"Medidas.Preco Medio\",\"NativeReferenceName\":\"Preco Medio\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Receita Total Estimada\"},\"Name\":\"Medidas.Receita Total Estimada\",\"NativeReferenceName\":\"Receita Total Estimada\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Qtd Fabricantes\"},\"Name\":\"Medidas.Qtd Fabricantes\",\"NativeReferenceName\":\"Qtd Fabricantes\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Memoria Media MB\"},\"Name\":\"Medidas.Memoria Media MB\",\"NativeReferenceName\":\"Memoria Media MB\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 300.00,
+          "width": 565.56,
+          "x": 50.00,
+          "y": 40.00,
+          "z": 1.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

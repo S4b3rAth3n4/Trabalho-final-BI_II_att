@@ -1,0 +1,1228 @@
+{
+  "compatibilityLevel": 1600,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"tab_fato\",\"dim_GPU/pruduto\",\"dim_fabricante\",\"dim_process\",\"dim_tempo/calendario\",\"dim_financeiro\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "pt-BR",
+    "cultures": [
+      {
+        "name": "pt-BR",
+        "linguisticMetadata": {
+          "content": {
+            "Language": "en-US",
+            "Version": "1.0.0"
+          },
+          "contentType": "json"
+        }
+      }
+    ],
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "dim_tempo/calendario",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "expression": [
+          "let",
+          "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\berna\\Downloads\\archive\\All_GPUs.csv\"),[Delimiter=\",\", Columns=34, Encoding=1252, QuoteStyle=QuoteStyle.Csv]),",
+          "    #\"Cabeçalhos Promovidos\" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+          "    #\"Tipo Alterado\" = Table.TransformColumnTypes(#\"Cabeçalhos Promovidos\",{{\"Architecture\", type text}, {\"Best_Resolution\", type text}, {\"Boost_Clock\", type text}, {\"Core_Speed\", type text}, {\"DVI_Connection\", Int64.Type}, {\"Dedicated\", type text}, {\"Direct_X\", type text}, {\"DisplayPort_Connection\", Int64.Type}, {\"HDMI_Connection\", Int64.Type}, {\"Integrated\", type text}, {\"L2_Cache\", type text}, {\"Manufacturer\", type text}, {\"Max_Power\", type text}, {\"Memory\", type text}, {\"Memory_Bandwidth\", type text}, {\"Memory_Bus\", type text}, {\"Memory_Speed\", type text}, {\"Memory_Type\", type text}, {\"Name\", type text}, {\"Notebook_GPU\", type text}, {\"Open_GL\", Int64.Type}, {\"PSU\", type text}, {\"Pixel_Rate\", type text}, {\"Power_Connector\", type text}, {\"Process\", type text}, {\"ROPs\", type text}, {\"Release_Date\", type text}, {\"Release_Price\", type text}, {\"Resolution_WxH\", type text}, {\"SLI_Crossfire\", type text}, {\"Shader\", Int64.Type}, {\"TMUs\", Int64.Type}, {\"Texture_Rate\", type text}, {\"VGA_Connection\", Int64.Type}}),",
+          "    #\"Linhas Filtradas\" = Table.SelectRows(#\"Tipo Alterado\", each ([VGA_Connection] <> null)),",
+          "    #\"Colunas Removidas\" = Table.RemoveColumns(#\"Linhas Filtradas\",{\"Best_Resolution\", \"Resolution_WxH\", \"DVI_Connection\", \"VGA_Connection\", \"DisplayPort_Connection\", \"HDMI_Connection\", \"SLI_Crossfire\", \"Power_Connector\", \"PSU\", \"L2_Cache\", \"Open_GL\"}),",
+          "    #\"Linhas Filtradas1\" = Table.SelectRows(#\"Colunas Removidas\", each ([Texture_Rate] <> \"\") and ([Shader] <> null) and ([Release_Price] <> \"\")),",
+          "    #\"Colunas Removidas1\" = Table.RemoveColumns(#\"Linhas Filtradas1\",{\"Notebook_GPU\"}),",
+          "    #\"Linhas Filtradas2\" = Table.SelectRows(#\"Colunas Removidas1\", each ([Memory_Type] <> \"\") and ([Memory] <> \"\") and ([Max_Power] <> \"\")),",
+          "    #\"Colunas Removidas2\" = Table.RemoveColumns(#\"Linhas Filtradas2\",{\"Integrated\", \"Dedicated\", \"Architecture\", \"Boost_Clock\", \"Core_Speed\", \"Direct_X\", \"Manufacturer\", \"Max_Power\", \"Memory\", \"Memory_Bandwidth\", \"Memory_Bus\", \"Memory_Speed\", \"Memory_Type\", \"Name\", \"Pixel_Rate\", \"Process\", \"ROPs\", \"Release_Price\", \"Shader\", \"TMUs\", \"Texture_Rate\"}),",
+          "    #\"Duplicatas Removidas\" = Table.Distinct(#\"Colunas Removidas2\"),",
+          "    #\"Índice Adicionado\" = Table.AddIndexColumn(#\"Duplicatas Removidas\", \"Índice\", 0, 1, Int64.Type),",
+          "    #\"Colunas Removidas3\" = Table.RemoveColumns(#\"Índice Adicionado\",{\"Índice\"}),",
+          "    #\"Índice Adicionado1\" = Table.AddIndexColumn(#\"Colunas Removidas3\", \"Índice\", 0, 1, Int64.Type),",
+          "    #\"Colunas Removidas4\" = Table.RemoveColumns(#\"Índice Adicionado1\",{\"Índice\"}),",
+          "    #\"Índice Adicionado2\" = Table.AddIndexColumn(#\"Colunas Removidas4\", \"Índice\", 1, 1, Int64.Type),",
+          "    #\"Colunas Renomeadas\" = Table.RenameColumns(#\"Índice Adicionado2\",{{\"Índice\", \"Release_Date_ID\"}}),",
+          "    #\"Tipo Alterado com Localidade\" = Table.TransformColumnTypes(#\"Colunas Renomeadas\", {{\"Release_Date\", type date}}, \"en-US\"),",
+          "    #\"Erros Substituídos\" = Table.ReplaceErrorValues(#\"Tipo Alterado com Localidade\", {{\"Release_Date\", null}}),",
+          "    #\"Linhas Filtradas3\" = Table.SelectRows(#\"Erros Substituídos\", each ([Release_Date] <> null))",
+          "in",
+          "    #\"Linhas Filtradas3\""
+        ],
+        "kind": "m",
+        "lineageTag": "595ed0e9-464d-49f4-8eb0-7bd1e7715040"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "AutoDetected_9dcf8016-c0a9-4f20-bd5a-8297022142d4",
+        "fromColumn": "Process_ID",
+        "fromTable": "tab_fato",
+        "toColumn": "Process_ID",
+        "toTable": "dim_process"
+      },
+      {
+        "name": "5032a3d6-ba5d-dc44-62e7-5e37202c66fd",
+        "fromColumn": "Name_ID",
+        "fromTable": "tab_fato",
+        "toColumn": "Name_ID",
+        "toTable": "dim_GPU/pruduto"
+      },
+      {
+        "name": "518027c5-78ef-7c13-c509-614f1602b382",
+        "fromColumn": "Manufacturer_ID",
+        "fromTable": "tab_fato",
+        "toColumn": "Manufacturer",
+        "toTable": "dim_fabricante"
+      },
+      {
+        "name": "fff87c18-059a-1d22-9abb-84377e858032",
+        "fromColumn": "release_date",
+        "fromTable": "tab_fato",
+        "toColumn": "Date",
+        "toTable": "dim_calendario"
+      }
+    ],
+    "sourceQueryCulture": "pt-BR",
+    "tables": [
+      {
+        "name": "tab_fato",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Direct_X",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "3aef129e-bdc9-473a-beed-6d73b0535a0d",
+            "sourceColumn": "Direct_X",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Memory_Bandwidth",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "a29eb4a3-6b0a-432e-b23e-8fe51966b2f3",
+            "sourceColumn": "Memory_Bandwidth",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Shader",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "double",
+            "formatString": "0",
+            "lineageTag": "bb63fe69-80da-49bb-a482-6a6d3da055b9",
+            "sourceColumn": "Shader",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "TMUs",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "double",
+            "formatString": "0",
+            "lineageTag": "4bedbb58-a24b-4d2c-aab8-29fefd6704e2",
+            "sourceColumn": "TMUs",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Texture_Rate",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "1712a9a3-eaec-4ca6-9743-698d9817213c",
+            "sourceColumn": "Texture_Rate",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Manufacturer_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "a275091a-5cce-4c36-a5df-8719d2679a72",
+            "sourceColumn": "Manufacturer_ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Architecture_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "dd436f25-c90e-4e68-bdc2-24437b06eff0",
+            "sourceColumn": "Architecture_ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Memory_Type_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cc5ac357-7fa6-4d3c-b646-c0a18fe5dbe4",
+            "sourceColumn": "Memory_Type_ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Name_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "bdbb8e5c-b9b6-46d5-800d-6dc50e3b738c",
+            "sourceColumn": "Name_ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Process_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "dda47392-5489-4e5e-b501-aceb7a899b99",
+            "sourceColumn": "Process_ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Release_Date_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "0c8b6c16-126a-41b5-a94b-a7f08f2c4498",
+            "sourceColumn": "Release_Date_ID",
+            "summarizeBy": "count"
+          },
+          {
+            "name": "Release_Price_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "c786e5ef-e0c1-438d-bd6e-6f5077691167",
+            "sourceColumn": "Release_Price_ID",
+            "summarizeBy": "count"
+          },
+          {
+            "name": "release_price",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "ed3677fe-5917-4c14-a72c-60ad6e3a691a",
+            "sourceColumn": "release_price",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "release_date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Long Date",
+            "lineageTag": "6ad5a2a3-1d33-45f2-967f-ee5b69c76c5b",
+            "sourceColumn": "release_date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Boost_Clock",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "f1a0c90b-3628-4d79-954c-f9faee2b2d78",
+            "sourceColumn": "Boost_Clock",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Core_Speed",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "703ef21f-0203-43f4-86ba-a42df212d501",
+            "sourceColumn": "Core_Speed",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Max_Power",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "af9c9ffc-34a4-4114-a2c5-bfdc3396c64d",
+            "sourceColumn": "Max_Power",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Memory",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "192b7181-6014-42ae-9b70-3977caeba9e1",
+            "sourceColumn": "Memory",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Memory_Bus",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "dae193e4-5a4b-4538-ae96-ce9e326c0b8b",
+            "sourceColumn": "Memory_Bus",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Memory_Speed",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "782211a5-bed1-4352-a1ae-397b822d6734",
+            "sourceColumn": "Memory_Speed",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Pixel_Rate",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "2a02e3cb-bfc5-409b-b701-f8fc292d42a8",
+            "sourceColumn": "Pixel_Rate",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ROPs",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "ff9afcc6-d688-477c-abe6-9ad51380a3c7",
+            "sourceColumn": "ROPs",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Tipo_Usuario_Alvo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": "IF(tab_fato[release_price] <= 500, \"Consumidor\", \"Lojista\")",
+            "isDataTypeInferred": true,
+            "lineageTag": "2b2edf7e-2962-436f-8530-de8985d55eef",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "lineageTag": "6a228bad-6ad8-4bbc-ab1b-0f5f035d3543",
+        "partitions": [
+          {
+            "name": "tab_fato",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\berna\\Downloads\\archive\\All_GPUs.csv\"),[Delimiter=\",\", Columns=34, Encoding=1252, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Cabeçalhos Promovidos\" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(#\"Cabeçalhos Promovidos\",{{\"Architecture\", type text}, {\"Best_Resolution\", type text}, {\"Boost_Clock\", type text}, {\"Core_Speed\", type text}, {\"DVI_Connection\", Int64.Type}, {\"Dedicated\", type text}, {\"Direct_X\", type text}, {\"DisplayPort_Connection\", Int64.Type}, {\"HDMI_Connection\", Int64.Type}, {\"Integrated\", type text}, {\"L2_Cache\", type text}, {\"Manufacturer\", type text}, {\"Max_Power\", type text}, {\"Memory\", type text}, {\"Memory_Bandwidth\", type text}, {\"Memory_Bus\", type text}, {\"Memory_Speed\", type text}, {\"Memory_Type\", type text}, {\"Name\", type text}, {\"Notebook_GPU\", type text}, {\"Open_GL\", Int64.Type}, {\"PSU\", type text}, {\"Pixel_Rate\", type text}, {\"Power_Connector\", type text}, {\"Process\", type text}, {\"ROPs\", type text}, {\"Release_Date\", type text}, {\"Release_Price\", type text}, {\"Resolution_WxH\", type text}, {\"SLI_Crossfire\", type text}, {\"Shader\", Int64.Type}, {\"TMUs\", Int64.Type}, {\"Texture_Rate\", type text}, {\"VGA_Connection\", Int64.Type}}),",
+                "    #\"Linhas Filtradas\" = Table.SelectRows(#\"Tipo Alterado\", each ([VGA_Connection] <> null)),",
+                "    #\"Colunas Removidas\" = Table.RemoveColumns(#\"Linhas Filtradas\",{\"Best_Resolution\", \"Resolution_WxH\", \"DVI_Connection\", \"VGA_Connection\", \"DisplayPort_Connection\", \"HDMI_Connection\", \"SLI_Crossfire\", \"Power_Connector\", \"PSU\", \"L2_Cache\", \"Open_GL\"}),",
+                "    #\"Linhas Filtradas1\" = Table.SelectRows(#\"Colunas Removidas\", each ([Texture_Rate] <> \"\") and ([Shader] <> null) and ([Release_Price] <> \"\")),",
+                "    #\"Colunas Removidas1\" = Table.RemoveColumns(#\"Linhas Filtradas1\",{\"Notebook_GPU\"}),",
+                "    #\"Linhas Filtradas2\" = Table.SelectRows(#\"Colunas Removidas1\", each ([Memory_Type] <> \"\") and ([Memory] <> \"\") and ([Max_Power] <> \"\")),",
+                "    #\"Colunas Removidas2\" = Table.RemoveColumns(#\"Linhas Filtradas2\",{\"Integrated\", \"Dedicated\"}),",
+                "    #\"Consultas Mescladas\" = Table.NestedJoin(#\"Colunas Removidas2\", {\"Manufacturer\"}, dim_fabricante, {\"Manufacturer\"}, \"dim_fabricante\", JoinKind.LeftOuter),",
+                "    #\"dim_fabricante Expandido\" = Table.ExpandTableColumn(#\"Consultas Mescladas\", \"dim_fabricante\", {\"Manufacturer_ID\"}, {\"dim_fabricante.Manufacturer_ID\"}),",
+                "    #\"Colunas Renomeadas\" = Table.RenameColumns(#\"dim_fabricante Expandido\",{{\"dim_fabricante.Manufacturer_ID\", \"Manufacturer_ID\"}}),",
+                "    #\"Colunas Removidas3\" = Table.RemoveColumns(#\"Colunas Renomeadas\",{\"Manufacturer\"}),",
+                "    #\"Consultas Mescladas1\" = Table.NestedJoin(#\"Colunas Removidas3\", {\"Name\"}, #\"dim_GPU/pruduto\", {\"Name\"}, \"dim_GPU/pruduto\", JoinKind.LeftOuter),",
+                "    #\"Colunas Removidas4\" = Table.RemoveColumns(#\"Consultas Mescladas1\",{\"dim_GPU/pruduto\"}),",
+                "    #\"Consultas Mescladas2\" = Table.NestedJoin(#\"Colunas Removidas4\", {\"Name\"}, #\"dim_GPU/pruduto\", {\"Name\"}, \"dim_GPU/pruduto\", JoinKind.LeftOuter),",
+                "    #\"Colunas Renomeadas1\" = Table.RenameColumns(#\"Consultas Mescladas2\",{{\"dim_GPU/pruduto\", \"name_ID\"}}),",
+                "    #\"name_ID Expandido\" = Table.ExpandTableColumn(#\"Colunas Renomeadas1\", \"name_ID\", {\"Architecture\", \"Manufacturer\", \"Memory_Type\", \"Name_ID\"}, {\"name_ID.Architecture\", \"name_ID.Manufacturer\", \"name_ID.Memory_Type\", \"name_ID.Name_ID\"}),",
+                "    #\"Colunas Renomeadas2\" = Table.RenameColumns(#\"name_ID Expandido\",{{\"name_ID.Name_ID\", \"Name_ID\"}, {\"name_ID.Memory_Type\", \"Memory_Type_ID\"}, {\"name_ID.Manufacturer\", \"Manufacturer_ID_II\"}, {\"name_ID.Architecture\", \"Architecture_ID\"}}),",
+                "    #\"Colunas Removidas5\" = Table.RemoveColumns(#\"Colunas Renomeadas2\",{\"Name\", \"Memory_Type\", \"Architecture\"}),",
+                "    #\"Consultas Mescladas3\" = Table.NestedJoin(#\"Colunas Removidas5\", {\"Process\"}, dim_process, {\"Process\"}, \"dim_process\", JoinKind.LeftOuter),",
+                "    #\"dim_process Expandido\" = Table.ExpandTableColumn(#\"Consultas Mescladas3\", \"dim_process\", {\"Process_ID\"}, {\"dim_process.Process_ID\"}),",
+                "    #\"Colunas Renomeadas3\" = Table.RenameColumns(#\"dim_process Expandido\",{{\"dim_process.Process_ID\", \"Process_ID\"}}),",
+                "    #\"Colunas Removidas6\" = Table.RemoveColumns(#\"Colunas Renomeadas3\",{\"Process\"}),",
+                "    #\"Consultas Mescladas4\" = Table.NestedJoin(#\"Colunas Removidas6\", {\"Release_Date\"}, #\"dim_tempo/calendario\", {\"Release_Date\"}, \"dim_tempo/calendario\", JoinKind.LeftOuter),",
+                "    #\"dim_tempo/calendario Expandido\" = Table.ExpandTableColumn(#\"Consultas Mescladas4\", \"dim_tempo/calendario\", {\"Release_Date_ID\"}, {\"dim_tempo/calendario.Release_Date_ID\"}),",
+                "    #\"Colunas Renomeadas4\" = Table.RenameColumns(#\"dim_tempo/calendario Expandido\",{{\"dim_tempo/calendario.Release_Date_ID\", \"Release_Date_ID\"}}),",
+                "    #\"Consultas Mescladas5\" = Table.NestedJoin(#\"Colunas Renomeadas4\", {\"Release_Price\"}, dim_financeiro, {\"Release_Price\"}, \"dim_financeiro\", JoinKind.LeftOuter),",
+                "    #\"dim_financeiro Expandido\" = Table.ExpandTableColumn(#\"Consultas Mescladas5\", \"dim_financeiro\", {\"Release_Price_ID\"}, {\"dim_financeiro.Release_Price_ID\"}),",
+                "    #\"Colunas Renomeadas5\" = Table.RenameColumns(#\"dim_financeiro Expandido\",{{\"dim_financeiro.Release_Price_ID\", \"Release_Price_ID\"}}),",
+                "    #\"Colunas Removidas8\" = Table.RemoveColumns(#\"Colunas Renomeadas5\",{\"Release_Price\"}),",
+                "    #\"Erros Substituídos\" = Table.ReplaceErrorValues(#\"Colunas Removidas8\", {{\"Boost_Clock\", null}}),",
+                "    #\"Colunas Removidas9\" = Table.RemoveColumns(#\"Erros Substituídos\",{\"Manufacturer_ID_II\"}),",
+                "    #\"Consultas Mescladas6\" = Table.NestedJoin(#\"Colunas Removidas9\", {\"Release_Price_ID\"}, dim_financeiro, {\"Release_Price_ID\"}, \"dim_financeiro\", JoinKind.LeftOuter),",
+                "    #\"dim_financeiro Expandido1\" = Table.ExpandTableColumn(#\"Consultas Mescladas6\", \"dim_financeiro\", {\"Release_Price\"}, {\"dim_financeiro.Release_Price\"}),",
+                "    #\"Colunas Renomeadas6\" = Table.RenameColumns(#\"dim_financeiro Expandido1\",{{\"dim_financeiro.Release_Price\", \"release_price\"}}),",
+                "    #\"Valor Substituído\" = Table.ReplaceValue(#\"Colunas Renomeadas6\",\"$\",\"\",Replacer.ReplaceText,{\"release_price\"}),",
+                "    #\"Tipo Alterado com Localidade\" = Table.TransformColumnTypes(#\"Valor Substituído\", {{\"release_price\", type number}}, \"en-US\"),",
+                "    #\"Tipo Alterado com Localidade1\" = Table.TransformColumnTypes(#\"Tipo Alterado com Localidade\", {{\"Release_Date\", type date}}, \"en-US\"),",
+                "    #\"Colunas Renomeadas7\" = Table.RenameColumns(#\"Tipo Alterado com Localidade1\",{{\"Release_Date\", \"release_date\"}}),",
+                "    #\"Dividir Coluna por Delimitador\" = Table.SplitColumn(#\"Colunas Renomeadas7\", \"Memory\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"Memory.1\", \"Memory.2\"}),",
+                "    #\"Tipo Alterado1\" = Table.TransformColumnTypes(#\"Dividir Coluna por Delimitador\",{{\"Memory.1\", Int64.Type}, {\"Memory.2\", type text}}),",
+                "    #\"Colunas Removidas7\" = Table.RemoveColumns(#\"Tipo Alterado1\",{\"Memory.2\"}),",
+                "    #\"Colunas Renomeadas8\" = Table.RenameColumns(#\"Colunas Removidas7\",{{\"Memory.1\", \"Memory\"}}),",
+                "    #\"Dividir Coluna por Delimitador1\" = Table.SplitColumn(#\"Colunas Renomeadas8\", \"Boost_Clock\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"Boost_Clock.1\", \"Boost_Clock.2\"}),",
+                "    #\"Tipo Alterado2\" = Table.TransformColumnTypes(#\"Dividir Coluna por Delimitador1\",{{\"Boost_Clock.1\", Int64.Type}, {\"Boost_Clock.2\", type text}}),",
+                "    #\"Colunas Removidas10\" = Table.RemoveColumns(#\"Tipo Alterado2\",{\"Boost_Clock.2\"}),",
+                "    #\"Tipo Alterado3\" = Table.TransformColumnTypes(#\"Colunas Removidas10\",{{\"Boost_Clock.1\", type number}}),",
+                "    #\"Erros Substituídos1\" = Table.ReplaceErrorValues(#\"Tipo Alterado3\", {{\"Boost_Clock.1\", null}}),",
+                "    #\"Dividir Coluna por Delimitador2\" = Table.SplitColumn(#\"Erros Substituídos1\", \"Core_Speed\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"Core_Speed.1\", \"Core_Speed.2\"}),",
+                "    #\"Tipo Alterado4\" = Table.TransformColumnTypes(#\"Dividir Coluna por Delimitador2\",{{\"Core_Speed.1\", type text}, {\"Core_Speed.2\", type text}}),",
+                "    #\"Colunas Removidas11\" = Table.RemoveColumns(#\"Tipo Alterado4\",{\"Core_Speed.2\"}),",
+                "    #\"Tipo Alterado5\" = Table.TransformColumnTypes(#\"Colunas Removidas11\",{{\"Core_Speed.1\", type number}}),",
+                "    #\"Erros Substituídos2\" = Table.ReplaceErrorValues(#\"Tipo Alterado5\", {{\"Core_Speed.1\", null}}),",
+                "    #\"Dividir Coluna por Delimitador3\" = Table.SplitColumn(#\"Erros Substituídos2\", \"Max_Power\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"Max_Power.1\", \"Max_Power.2\"}),",
+                "    #\"Tipo Alterado6\" = Table.TransformColumnTypes(#\"Dividir Coluna por Delimitador3\",{{\"Max_Power.1\", Int64.Type}, {\"Max_Power.2\", type text}}),",
+                "    #\"Colunas Removidas12\" = Table.RemoveColumns(#\"Tipo Alterado6\",{\"Max_Power.2\"}),",
+                "    #\"Erros Substituídos3\" = Table.ReplaceErrorValues(#\"Colunas Removidas12\", {{\"Max_Power.1\", null}}),",
+                "    #\"Colunas Renomeadas9\" = Table.RenameColumns(#\"Erros Substituídos3\",{{\"Max_Power.1\", \"Max_Power\"}, {\"Core_Speed.1\", \"Core_Speed\"}, {\"Boost_Clock.1\", \"Boost_Clock\"}}),",
+                "    #\"Dividir Coluna por Delimitador4\" = Table.SplitColumn(#\"Colunas Renomeadas9\", \"Memory_Bus\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"Memory_Bus.1\", \"Memory_Bus.2\"}),",
+                "    #\"Tipo Alterado7\" = Table.TransformColumnTypes(#\"Dividir Coluna por Delimitador4\",{{\"Memory_Bus.1\", Int64.Type}, {\"Memory_Bus.2\", type text}}),",
+                "    #\"Colunas Removidas13\" = Table.RemoveColumns(#\"Tipo Alterado7\",{\"Memory_Bus.2\"}),",
+                "    #\"Colunas Renomeadas10\" = Table.RenameColumns(#\"Colunas Removidas13\",{{\"Memory_Bus.1\", \"Memory_Bus\"}}),",
+                "    #\"Dividir Coluna por Delimitador5\" = Table.SplitColumn(#\"Colunas Renomeadas10\", \"Memory_Speed\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"Memory_Speed.1\", \"Memory_Speed.2\"}),",
+                "    #\"Tipo Alterado8\" = Table.TransformColumnTypes(#\"Dividir Coluna por Delimitador5\",{{\"Memory_Speed.1\", Int64.Type}, {\"Memory_Speed.2\", type text}}),",
+                "    #\"Colunas Renomeadas11\" = Table.RenameColumns(#\"Tipo Alterado8\",{{\"Memory_Speed.1\", \"Memory_Speed\"}}),",
+                "    #\"Colunas Removidas14\" = Table.RemoveColumns(#\"Colunas Renomeadas11\",{\"Memory_Speed.2\"}),",
+                "    #\"Dividir Coluna por Delimitador6\" = Table.SplitColumn(#\"Colunas Removidas14\", \"Pixel_Rate\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"Pixel_Rate.1\", \"Pixel_Rate.2\"}),",
+                "    #\"Tipo Alterado9\" = Table.TransformColumnTypes(#\"Dividir Coluna por Delimitador6\",{{\"Pixel_Rate.1\", Int64.Type}, {\"Pixel_Rate.2\", type text}}),",
+                "    #\"Colunas Removidas15\" = Table.RemoveColumns(#\"Tipo Alterado9\",{\"Pixel_Rate.2\"}),",
+                "    #\"Colunas Renomeadas12\" = Table.RenameColumns(#\"Colunas Removidas15\",{{\"Pixel_Rate.1\", \"Pixel_Rate\"}}),",
+                "    #\"Dividir Coluna por Delimitador7\" = Table.SplitColumn(#\"Colunas Renomeadas12\", \"ROPs\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"ROPs.1\", \"ROPs.2\"}),",
+                "    #\"Tipo Alterado10\" = Table.TransformColumnTypes(#\"Dividir Coluna por Delimitador7\",{{\"ROPs.1\", Int64.Type}, {\"ROPs.2\", type text}}),",
+                "    #\"Colunas Removidas16\" = Table.RemoveColumns(#\"Tipo Alterado10\",{\"ROPs.2\"}),",
+                "    #\"Colunas Renomeadas13\" = Table.RenameColumns(#\"Colunas Removidas16\",{{\"ROPs.1\", \"ROPs\"}}),",
+                "    #\"Tipo Alterado11\" = Table.TransformColumnTypes(#\"Colunas Renomeadas13\",{{\"TMUs\", type number}, {\"Shader\", type number}, {\"ROPs\", type number}, {\"Pixel_Rate\", type number}, {\"Memory_Speed\", type number}, {\"Memory_Bus\", type number}, {\"Memory\", type number}, {\"Max_Power\", type number}, {\"Core_Speed\", type number}})",
+                "in",
+                "    #\"Tipo Alterado11\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_GPU/pruduto",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Architecture",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "3ccd1cf8-9712-4aee-8832-51a2355ba530",
+            "sourceColumn": "Architecture",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Manufacturer",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "89d01915-5ddc-4ee8-b2d1-1273daa27fea",
+            "sourceColumn": "Manufacturer",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Memory_Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "ca873ce6-779a-4a72-b7ec-e4327be9e1df",
+            "sourceColumn": "Memory_Type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Name",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "d82280d6-c05e-4b7f-8f80-3d0aaf15fe07",
+            "sourceColumn": "Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Name_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "88c12fd2-560c-498c-a14b-3a21c0a95b01",
+            "sourceColumn": "Name_ID",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "d21de23b-767f-46f7-8d67-d2b7b9b02165",
+        "partitions": [
+          {
+            "name": "dim_GPU/pruduto",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\berna\\Downloads\\archive\\All_GPUs.csv\"),[Delimiter=\",\", Columns=34, Encoding=1252, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Cabeçalhos Promovidos\" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(#\"Cabeçalhos Promovidos\",{{\"Architecture\", type text}, {\"Best_Resolution\", type text}, {\"Boost_Clock\", type text}, {\"Core_Speed\", type text}, {\"DVI_Connection\", Int64.Type}, {\"Dedicated\", type text}, {\"Direct_X\", type text}, {\"DisplayPort_Connection\", Int64.Type}, {\"HDMI_Connection\", Int64.Type}, {\"Integrated\", type text}, {\"L2_Cache\", type text}, {\"Manufacturer\", type text}, {\"Max_Power\", type text}, {\"Memory\", type text}, {\"Memory_Bandwidth\", type text}, {\"Memory_Bus\", type text}, {\"Memory_Speed\", type text}, {\"Memory_Type\", type text}, {\"Name\", type text}, {\"Notebook_GPU\", type text}, {\"Open_GL\", Int64.Type}, {\"PSU\", type text}, {\"Pixel_Rate\", type text}, {\"Power_Connector\", type text}, {\"Process\", type text}, {\"ROPs\", type text}, {\"Release_Date\", type text}, {\"Release_Price\", type text}, {\"Resolution_WxH\", type text}, {\"SLI_Crossfire\", type text}, {\"Shader\", Int64.Type}, {\"TMUs\", Int64.Type}, {\"Texture_Rate\", type text}, {\"VGA_Connection\", Int64.Type}}),",
+                "    #\"Linhas Filtradas\" = Table.SelectRows(#\"Tipo Alterado\", each ([VGA_Connection] <> null)),",
+                "    #\"Colunas Removidas\" = Table.RemoveColumns(#\"Linhas Filtradas\",{\"Best_Resolution\", \"Resolution_WxH\", \"DVI_Connection\", \"VGA_Connection\", \"DisplayPort_Connection\", \"HDMI_Connection\", \"SLI_Crossfire\", \"Power_Connector\", \"PSU\", \"L2_Cache\", \"Open_GL\"}),",
+                "    #\"Linhas Filtradas1\" = Table.SelectRows(#\"Colunas Removidas\", each ([Texture_Rate] <> \"\") and ([Shader] <> null) and ([Release_Price] <> \"\")),",
+                "    #\"Colunas Removidas1\" = Table.RemoveColumns(#\"Linhas Filtradas1\",{\"Notebook_GPU\"}),",
+                "    #\"Linhas Filtradas2\" = Table.SelectRows(#\"Colunas Removidas1\", each ([Memory_Type] <> \"\") and ([Memory] <> \"\") and ([Max_Power] <> \"\")),",
+                "    #\"Colunas Removidas2\" = Table.RemoveColumns(#\"Linhas Filtradas2\",{\"Texture_Rate\", \"TMUs\", \"Shader\", \"Release_Price\", \"Release_Date\", \"ROPs\", \"Process\", \"Pixel_Rate\", \"Memory_Speed\", \"Boost_Clock\", \"Core_Speed\", \"Dedicated\", \"Direct_X\", \"Integrated\", \"Max_Power\", \"Memory\", \"Memory_Bandwidth\", \"Memory_Bus\"}),",
+                "    #\"Duplicatas Removidas\" = Table.Distinct(#\"Colunas Removidas2\", {\"Name\"}),",
+                "    #\"Índice Adicionado\" = Table.AddIndexColumn(#\"Duplicatas Removidas\", \"Índice\", 1, 1, Int64.Type),",
+                "    #\"Colunas Renomeadas\" = Table.RenameColumns(#\"Índice Adicionado\",{{\"Índice\", \"Name_ID\"}})",
+                "in",
+                "    #\"Colunas Renomeadas\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_fabricante",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Manufacturer",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "2a92d23f-a859-4552-8ca0-79e49e14e37c",
+            "sourceColumn": "Manufacturer",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Manufacturer_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "3ff9451e-7632-44a7-acf3-ef0e4cab0dee",
+            "sourceColumn": "Manufacturer_ID",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "f7772b64-11f8-4c5b-8d31-df9363183987",
+        "partitions": [
+          {
+            "name": "dim_fabricante",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\berna\\Downloads\\archive\\All_GPUs.csv\"),[Delimiter=\",\", Columns=34, Encoding=1252, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Cabeçalhos Promovidos\" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(#\"Cabeçalhos Promovidos\",{{\"Architecture\", type text}, {\"Best_Resolution\", type text}, {\"Boost_Clock\", type text}, {\"Core_Speed\", type text}, {\"DVI_Connection\", Int64.Type}, {\"Dedicated\", type text}, {\"Direct_X\", type text}, {\"DisplayPort_Connection\", Int64.Type}, {\"HDMI_Connection\", Int64.Type}, {\"Integrated\", type text}, {\"L2_Cache\", type text}, {\"Manufacturer\", type text}, {\"Max_Power\", type text}, {\"Memory\", type text}, {\"Memory_Bandwidth\", type text}, {\"Memory_Bus\", type text}, {\"Memory_Speed\", type text}, {\"Memory_Type\", type text}, {\"Name\", type text}, {\"Notebook_GPU\", type text}, {\"Open_GL\", Int64.Type}, {\"PSU\", type text}, {\"Pixel_Rate\", type text}, {\"Power_Connector\", type text}, {\"Process\", type text}, {\"ROPs\", type text}, {\"Release_Date\", type text}, {\"Release_Price\", type text}, {\"Resolution_WxH\", type text}, {\"SLI_Crossfire\", type text}, {\"Shader\", Int64.Type}, {\"TMUs\", Int64.Type}, {\"Texture_Rate\", type text}, {\"VGA_Connection\", Int64.Type}}),",
+                "    #\"Linhas Filtradas\" = Table.SelectRows(#\"Tipo Alterado\", each ([VGA_Connection] <> null)),",
+                "    #\"Colunas Removidas\" = Table.RemoveColumns(#\"Linhas Filtradas\",{\"Best_Resolution\", \"Resolution_WxH\", \"DVI_Connection\", \"VGA_Connection\", \"DisplayPort_Connection\", \"HDMI_Connection\", \"SLI_Crossfire\", \"Power_Connector\", \"PSU\", \"L2_Cache\", \"Open_GL\"}),",
+                "    #\"Linhas Filtradas1\" = Table.SelectRows(#\"Colunas Removidas\", each ([Texture_Rate] <> \"\") and ([Shader] <> null) and ([Release_Price] <> \"\")),",
+                "    #\"Colunas Removidas1\" = Table.RemoveColumns(#\"Linhas Filtradas1\",{\"Notebook_GPU\"}),",
+                "    #\"Linhas Filtradas2\" = Table.SelectRows(#\"Colunas Removidas1\", each ([Memory_Type] <> \"\") and ([Memory] <> \"\") and ([Max_Power] <> \"\")),",
+                "    #\"Colunas Removidas2\" = Table.RemoveColumns(#\"Linhas Filtradas2\",{\"Integrated\", \"Dedicated\", \"Architecture\", \"Boost_Clock\", \"Core_Speed\", \"Direct_X\", \"Max_Power\", \"Memory\", \"Memory_Bandwidth\", \"Memory_Bus\", \"Memory_Speed\", \"Memory_Type\", \"Name\", \"Pixel_Rate\", \"Process\", \"ROPs\", \"Release_Date\", \"Release_Price\", \"Shader\", \"TMUs\", \"Texture_Rate\"}),",
+                "    #\"Duplicatas Removidas\" = Table.Distinct(#\"Colunas Removidas2\"),",
+                "    #\"Índice Adicionado\" = Table.AddIndexColumn(#\"Duplicatas Removidas\", \"Índice\", 0, 1, Int64.Type),",
+                "    #\"Colunas Removidas3\" = Table.RemoveColumns(#\"Índice Adicionado\",{\"Índice\"}),",
+                "    #\"Índice Adicionado1\" = Table.AddIndexColumn(#\"Colunas Removidas3\", \"Índice\", 1, 1, Int64.Type),",
+                "    #\"Colunas Renomeadas\" = Table.RenameColumns(#\"Índice Adicionado1\",{{\"Índice\", \"Manufacturer_ID\"}})",
+                "in",
+                "    #\"Colunas Renomeadas\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_process",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Process",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4e31f812-8c89-43f2-a03a-304ec6a174bc",
+            "sourceColumn": "Process",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Process_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "58cbee8c-8090-4ba7-92a9-bed80e0d6b65",
+            "sourceColumn": "Process_ID",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "f799d57b-1372-4988-857c-648e00a9e252",
+        "partitions": [
+          {
+            "name": "dim_process",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\berna\\Downloads\\archive\\All_GPUs.csv\"),[Delimiter=\",\", Columns=34, Encoding=1252, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Cabeçalhos Promovidos\" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(#\"Cabeçalhos Promovidos\",{{\"Architecture\", type text}, {\"Best_Resolution\", type text}, {\"Boost_Clock\", type text}, {\"Core_Speed\", type text}, {\"DVI_Connection\", Int64.Type}, {\"Dedicated\", type text}, {\"Direct_X\", type text}, {\"DisplayPort_Connection\", Int64.Type}, {\"HDMI_Connection\", Int64.Type}, {\"Integrated\", type text}, {\"L2_Cache\", type text}, {\"Manufacturer\", type text}, {\"Max_Power\", type text}, {\"Memory\", type text}, {\"Memory_Bandwidth\", type text}, {\"Memory_Bus\", type text}, {\"Memory_Speed\", type text}, {\"Memory_Type\", type text}, {\"Name\", type text}, {\"Notebook_GPU\", type text}, {\"Open_GL\", Int64.Type}, {\"PSU\", type text}, {\"Pixel_Rate\", type text}, {\"Power_Connector\", type text}, {\"Process\", type text}, {\"ROPs\", type text}, {\"Release_Date\", type text}, {\"Release_Price\", type text}, {\"Resolution_WxH\", type text}, {\"SLI_Crossfire\", type text}, {\"Shader\", Int64.Type}, {\"TMUs\", Int64.Type}, {\"Texture_Rate\", type text}, {\"VGA_Connection\", Int64.Type}}),",
+                "    #\"Linhas Filtradas\" = Table.SelectRows(#\"Tipo Alterado\", each ([VGA_Connection] <> null)),",
+                "    #\"Colunas Removidas\" = Table.RemoveColumns(#\"Linhas Filtradas\",{\"Best_Resolution\", \"Resolution_WxH\", \"DVI_Connection\", \"VGA_Connection\", \"DisplayPort_Connection\", \"HDMI_Connection\", \"SLI_Crossfire\", \"Power_Connector\", \"PSU\", \"L2_Cache\", \"Open_GL\"}),",
+                "    #\"Linhas Filtradas1\" = Table.SelectRows(#\"Colunas Removidas\", each ([Texture_Rate] <> \"\") and ([Shader] <> null) and ([Release_Price] <> \"\")),",
+                "    #\"Colunas Removidas1\" = Table.RemoveColumns(#\"Linhas Filtradas1\",{\"Notebook_GPU\"}),",
+                "    #\"Linhas Filtradas2\" = Table.SelectRows(#\"Colunas Removidas1\", each ([Memory_Type] <> \"\") and ([Memory] <> \"\") and ([Max_Power] <> \"\")),",
+                "    #\"Colunas Removidas2\" = Table.RemoveColumns(#\"Linhas Filtradas2\",{\"Integrated\", \"Dedicated\", \"Architecture\", \"Boost_Clock\", \"Core_Speed\", \"Direct_X\", \"Manufacturer\", \"Max_Power\", \"Memory\", \"Memory_Bandwidth\", \"Memory_Bus\", \"Memory_Speed\", \"Memory_Type\", \"Name\", \"Pixel_Rate\", \"ROPs\", \"Release_Date\", \"Release_Price\", \"Shader\", \"TMUs\", \"Texture_Rate\"}),",
+                "    #\"Duplicatas Removidas\" = Table.Distinct(#\"Colunas Removidas2\"),",
+                "    #\"Índice Adicionado\" = Table.AddIndexColumn(#\"Duplicatas Removidas\", \"Índice\", 1, 1, Int64.Type),",
+                "    #\"Colunas Renomeadas\" = Table.RenameColumns(#\"Índice Adicionado\",{{\"Índice\", \"Process_ID\"}})",
+                "in",
+                "    #\"Colunas Renomeadas\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_financeiro",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "changedProperties": [
+          {
+            "property": "IsHidden"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Release_Price",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "IsHidden"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "ab2a12bb-e1b6-4dcd-a003-f3e7a5f09ca5",
+            "sourceColumn": "Release_Price",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Release_Price_ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "IsHidden"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "b5c272a5-7ab4-4699-a06c-764a5683ca9b",
+            "sourceColumn": "Release_Price_ID",
+            "summarizeBy": "count"
+          }
+        ],
+        "isHidden": true,
+        "lineageTag": "7f870258-bdaa-46d6-832e-d9b73e714a15",
+        "partitions": [
+          {
+            "name": "dim_financeiro",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\berna\\Downloads\\archive\\All_GPUs.csv\"),[Delimiter=\",\", Columns=34, Encoding=1252, QuoteStyle=QuoteStyle.Csv]),",
+                "    #\"Cabeçalhos Promovidos\" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(#\"Cabeçalhos Promovidos\",{{\"Architecture\", type text}, {\"Best_Resolution\", type text}, {\"Boost_Clock\", type text}, {\"Core_Speed\", type text}, {\"DVI_Connection\", Int64.Type}, {\"Dedicated\", type text}, {\"Direct_X\", type text}, {\"DisplayPort_Connection\", Int64.Type}, {\"HDMI_Connection\", Int64.Type}, {\"Integrated\", type text}, {\"L2_Cache\", type text}, {\"Manufacturer\", type text}, {\"Max_Power\", type text}, {\"Memory\", type text}, {\"Memory_Bandwidth\", type text}, {\"Memory_Bus\", type text}, {\"Memory_Speed\", type text}, {\"Memory_Type\", type text}, {\"Name\", type text}, {\"Notebook_GPU\", type text}, {\"Open_GL\", Int64.Type}, {\"PSU\", type text}, {\"Pixel_Rate\", type text}, {\"Power_Connector\", type text}, {\"Process\", type text}, {\"ROPs\", type text}, {\"Release_Date\", type text}, {\"Release_Price\", type text}, {\"Resolution_WxH\", type text}, {\"SLI_Crossfire\", type text}, {\"Shader\", Int64.Type}, {\"TMUs\", Int64.Type}, {\"Texture_Rate\", type text}, {\"VGA_Connection\", Int64.Type}}),",
+                "    #\"Linhas Filtradas\" = Table.SelectRows(#\"Tipo Alterado\", each ([VGA_Connection] <> null)),",
+                "    #\"Colunas Removidas\" = Table.RemoveColumns(#\"Linhas Filtradas\",{\"Best_Resolution\", \"Resolution_WxH\", \"DVI_Connection\", \"VGA_Connection\", \"DisplayPort_Connection\", \"HDMI_Connection\", \"SLI_Crossfire\", \"Power_Connector\", \"PSU\", \"L2_Cache\", \"Open_GL\"}),",
+                "    #\"Linhas Filtradas1\" = Table.SelectRows(#\"Colunas Removidas\", each ([Texture_Rate] <> \"\") and ([Shader] <> null) and ([Release_Price] <> \"\")),",
+                "    #\"Colunas Removidas1\" = Table.RemoveColumns(#\"Linhas Filtradas1\",{\"Notebook_GPU\"}),",
+                "    #\"Linhas Filtradas2\" = Table.SelectRows(#\"Colunas Removidas1\", each ([Memory_Type] <> \"\") and ([Memory] <> \"\") and ([Max_Power] <> \"\")),",
+                "    #\"Colunas Removidas2\" = Table.RemoveColumns(#\"Linhas Filtradas2\",{\"Integrated\", \"Dedicated\", \"Architecture\", \"Boost_Clock\", \"Core_Speed\", \"Direct_X\", \"Manufacturer\", \"Max_Power\", \"Memory\", \"Memory_Bandwidth\", \"Memory_Bus\", \"Memory_Speed\", \"Memory_Type\", \"Name\", \"Pixel_Rate\", \"Process\", \"ROPs\", \"Release_Date\", \"Shader\", \"TMUs\", \"Texture_Rate\"}),",
+                "    #\"Duplicatas Removidas\" = Table.Distinct(#\"Colunas Removidas2\"),",
+                "    #\"Índice Adicionado\" = Table.AddIndexColumn(#\"Duplicatas Removidas\", \"Índice\", 1, 1, Int64.Type),",
+                "    #\"Colunas Renomeadas\" = Table.RenameColumns(#\"Índice Adicionado\",{{\"Índice\", \"Release_Price_ID\"}})",
+                "in",
+                "    #\"Colunas Renomeadas\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Medidas",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "8ff7ebb2d2bd4bdc86dd46f9f646734d"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Coluna_Apagar",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "f2d93014-7c45-40fb-b23e-67255a3d5559",
+            "sourceColumn": "[Coluna_Apagar]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "isHidden": true,
+        "lineageTag": "137901c1-28d3-43a0-aa82-30b4dd3758c3",
+        "measures": [
+          {
+            "name": "Total de GPUs",
+            "expression": "COUNTROWS(tab_fato)",
+            "formatString": "0",
+            "lineageTag": "21bb5313-9463-4281-ab46-e4c3b5e1f452"
+          },
+          {
+            "name": "Preco Medio",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "AVERAGE(tab_fato[release_price])",
+            "lineageTag": "abcb1148-c84e-4eff-8abb-bb7024bdeea8"
+          },
+          {
+            "name": "Receita Total Estimada",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "SUM(tab_fato[release_price])",
+            "lineageTag": "13712aac-b05d-4ea3-87e0-9ba24856d990"
+          },
+          {
+            "name": "Qtd Fabricantes",
+            "expression": "DISTINCTCOUNT(tab_fato[Manufacturer_ID])",
+            "formatString": "0",
+            "lineageTag": "05235547-d30c-423c-b6d5-a9852ed00d8e"
+          },
+          {
+            "name": "Memoria Media MB",
+            "expression": "AVERAGE(tab_fato[Memory])",
+            "formatString": "0",
+            "lineageTag": "edc47d4d-81b1-46f6-934a-291e5e3220fa"
+          },
+          {
+            "name": "Receita YTD",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "TOTALYTD(SUM(tab_fato[release_price]), dim_calendario[Date])",
+            "lineageTag": "35214525-134d-4ed2-ac45-5745490df972"
+          },
+          {
+            "name": "Receita MTD",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "TOTALMTD(SUM(tab_fato[release_price]), dim_calendario[Date])",
+            "lineageTag": "4ee13019-b6fb-488a-b5bc-1e2586b3e6c7"
+          },
+          {
+            "name": "Lancamentos Ano Anterior",
+            "expression": "CALCULATE(COUNTROWS(tab_fato), SAMEPERIODLASTYEAR(dim_calendario[Date]))",
+            "formatString": "0",
+            "lineageTag": "7d08557b-2370-42db-821a-15b5108b782a"
+          },
+          {
+            "name": "Menor Preco Componente Equivalente",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "// Menor preço entre GPUs com mesmo tipo e mesma capacidade de memória,",
+              "// usando ALLEXCEPT para manter o contexto de Memory_Type e Memory,",
+              "// mas remover filtros de fabricante (permite comparar entre fornecedores)",
+              "CALCULATE(",
+              "    MIN(tab_fato[release_price]),",
+              "    ALLEXCEPT(tab_fato, tab_fato[Memory_Type_ID], tab_fato[Memory])",
+              ")"
+            ],
+            "lineageTag": "0048b6fb-0dfa-475a-b7bf-9bedcb088d1b"
+          },
+          {
+            "name": "Preco Medio Periodo Recente",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "// Média de preço apenas para GPUs lançadas nos últimos 2 anos",
+              "// em relação à data mais recente da base (período \"recente\")",
+              "CALCULATE(",
+              "    AVERAGE(tab_fato[release_price]),",
+              "    FILTER(",
+              "        ALL(dim_calendario),",
+              "        dim_calendario[Date] > EDATE(MAX(tab_fato[release_date]), -24)",
+              "    )",
+              ")"
+            ],
+            "lineageTag": "51b5fa3b-9ac9-47f8-b224-f89b2ca5b340"
+          },
+          {
+            "name": "Preco Medio Periodo Historico",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "// Média de preço para GPUs lançadas antes dos últimos 2 anos",
+              "// (período \"histórico\", anterior ao recente)",
+              "CALCULATE(",
+              "    AVERAGE(tab_fato[release_price]),",
+              "    FILTER(",
+              "        ALL(dim_calendario),",
+              "        dim_calendario[Date] <= EDATE(MAX(tab_fato[release_date]), -24)",
+              "    )",
+              ")"
+            ],
+            "lineageTag": "7e877d1c-c252-465a-9a18-e3cc59d77712"
+          },
+          {
+            "name": "Variacao Percentual Preco",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "// Compara a média de preço do período recente vs histórico,",
+              "// retornando a variação percentual (queda ou alta de preços ao longo do tempo)",
+              "VAR PrecoRecente = [Preco Medio Periodo Recente]",
+              "VAR PrecoHistorico = [Preco Medio Periodo Historico]",
+              "RETURN",
+              "    DIVIDE(PrecoRecente - PrecoHistorico, PrecoHistorico, BLANK())"
+            ],
+            "lineageTag": "871ebff6-6183-43c7-9271-fa44fd918843"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Medidas",
+            "mode": "import",
+            "source": {
+              "expression": "ROW(\"Coluna_Apagar\", 0)",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_calendario",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "cdf321bd738e4e0ca44b6255a28e0216"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isDataTypeInferred": true,
+            "isKey": true,
+            "isNameInferred": true,
+            "lineageTag": "c3bd8f09-e0ca-45d6-9c49-9990cf23a4d0",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Ano",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "94785b9b-31df-4847-ba05-1493ca153d12",
+            "sourceColumn": "[Ano]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Mes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "ee0519c4-7af1-4061-9ae2-8bf14dd016be",
+            "sourceColumn": "[Mes]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "NomeMes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "45182107-72ff-4ba1-a158-5f010702d071",
+            "sourceColumn": "[NomeMes]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Trimestre",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "a2e44cdc-5ffd-439b-ac96-cbba3948183c",
+            "sourceColumn": "[Trimestre]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "AnoMes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "384023e0-f02b-4caf-936c-0ee2461293a2",
+            "sourceColumn": "[AnoMes]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "dataCategory": "Time",
+        "lineageTag": "a40fcd67-6332-4750-91a7-c0e6bd4164ba",
+        "partitions": [
+          {
+            "name": "dim_calendario",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "",
+                "ADDCOLUMNS(",
+                "    CALENDAR(MIN(tab_fato[release_date]), MAX(tab_fato[release_date])),",
+                "    \"Ano\", YEAR([Date]),",
+                "    \"Mes\", MONTH([Date]),",
+                "    \"NomeMes\", FORMAT([Date], \"MMMM\"),",
+                "    \"Trimestre\", \"Q\" & QUARTER([Date]),",
+                "    \"AnoMes\", FORMAT([Date], \"YYYY-MM\")",
+                ")"
+              ],
+              "type": "calculated"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
