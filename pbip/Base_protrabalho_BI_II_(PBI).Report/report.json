@@ -1,0 +1,198 @@
+{
+  "config": "{\"version\":\"5.70\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY26SU02\",\"type\":2,\"version\":{\"visual\":\"2.6.0\",\"report\":\"3.1.0\",\"page\":\"2.3.0\"}},\"customTheme\":{\"name\":\"AccessibleCityPark\",\"type\":2,\"version\":{\"visual\":\"2.7.0\",\"report\":\"3.2.0\",\"page\":\"2.3.1\"}}},\"activeSectionIndex\":2,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true,\"useEnhancedTooltips\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "AccessibleCityPark",
+            "path": "BuiltInThemes/AccessibleCityPark.json",
+            "type": 201
+          },
+          {
+            "name": "CY26SU02",
+            "path": "BaseThemes/CY26SU02.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Análise Técnica e Custo-Benefício das GPUs",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "20151bce0e0da1a19ed9",
+      "ordinal": 2,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"354b610001e7e7923578\",\"layouts\":[{\"id\":0,\"position\":{\"x\":640,\"y\":12.625189681335355,\"z\":1000,\"width\":640,\"height\":347.67830045523516,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"scatterChart\",\"projections\":{\"X\":[{\"queryRef\":\"Medidas.Preco Medio\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(tab_fato.Boost_Clock)\"}],\"Series\":[{\"queryRef\":\"dim_GPU/pruduto.Name\"}],\"Size\":[{\"queryRef\":\"Sum(tab_fato.Memory)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0},{\"Name\":\"t\",\"Entity\":\"tab_fato\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"dim_GPU/pruduto\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Preco Medio\"},\"Name\":\"Medidas.Preco Medio\",\"NativeReferenceName\":\"Preco Medio\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"Boost_Clock\"}},\"Function\":0},\"Name\":\"Sum(tab_fato.Boost_Clock)\",\"NativeReferenceName\":\"Soma de Boost_Clock\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Name\"},\"Name\":\"dim_GPU/pruduto.Name\",\"NativeReferenceName\":\"Name\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"Memory\"}},\"Function\":0},\"Name\":\"Sum(tab_fato.Memory)\",\"NativeReferenceName\":\"Soma de Memory\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"bubbles\":[{\"properties\":{\"markerShape\":{\"expr\":{\"Literal\":{\"Value\":\"'circle'\"}}},\"markerRangeType\":{\"expr\":{\"Literal\":{\"Value\":\"'auto'\"}}},\"bubbleSize\":{\"expr\":{\"Literal\":{\"Value\":\"0L\"}}}}}],\"markers\":[{\"properties\":{\"borderShow\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"30D\"}}}}}],\"valueAxis\":[{\"properties\":{\"gridlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}},\"gridlineThickness\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}}}}],\"categoryAxis\":[{\"properties\":{\"gridlineTransparency\":{\"expr\":{\"Literal\":{\"Value\":\"2D\"}}},\"gridlineColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}},\"gridlineThickness\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 347.68,
+          "width": 640.00,
+          "x": 640.00,
+          "y": 12.63,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"93c4bced428a6e0803e9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":14.567526555386948,\"y\":12.625189681335355,\"z\":0,\"width\":625.432473444613,\"height\":694.3854324734446,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"dim_GPU/pruduto.Name\",\"active\":true}],\"Values\":[{\"queryRef\":\"Medidas.Preco Medio\"},{\"queryRef\":\"Sum(tab_fato.Max_Power)\"},{\"queryRef\":\"Sum(tab_fato.Memory)\"},{\"queryRef\":\"Sum(tab_fato.Core_Speed)\"},{\"queryRef\":\"Sum(tab_fato.Boost_Clock)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_GPU/pruduto\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0},{\"Name\":\"t\",\"Entity\":\"tab_fato\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Name\"},\"Name\":\"dim_GPU/pruduto.Name\",\"NativeReferenceName\":\"Name\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Preco Medio\"},\"Name\":\"Medidas.Preco Medio\",\"NativeReferenceName\":\"Preco Medio\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"Max_Power\"}},\"Function\":0},\"Name\":\"Sum(tab_fato.Max_Power)\",\"NativeReferenceName\":\"Soma de Max_Power\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"Memory\"}},\"Function\":0},\"Name\":\"Sum(tab_fato.Memory)\",\"NativeReferenceName\":\"Soma de Memory\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"Core_Speed\"}},\"Function\":0},\"Name\":\"Sum(tab_fato.Core_Speed)\",\"NativeReferenceName\":\"Soma de Core_Speed\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"Boost_Clock\"}},\"Function\":0},\"Name\":\"Sum(tab_fato.Boost_Clock)\",\"NativeReferenceName\":\"Soma de Boost_Clock\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 694.39,
+          "width": 625.43,
+          "x": 14.57,
+          "y": 12.63,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"effb1f62328c267b0d67\",\"layouts\":[{\"id\":0,\"position\":{\"x\":640,\"y\":361,\"width\":640,\"height\":346,\"z\":2000,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"barChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_GPU/pruduto.Name\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(tab_fato.release_price)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_GPU/pruduto\",\"Type\":0},{\"Name\":\"t\",\"Entity\":\"tab_fato\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Name\"},\"Name\":\"dim_GPU/pruduto.Name\",\"NativeReferenceName\":\"Name\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"release_price\"}},\"Function\":0},\"Name\":\"Sum(tab_fato.release_price)\",\"NativeReferenceName\":\"Soma de release_price\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"release_price\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{},\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Top 10 GPUs com Maior Preço de Lançamento'\"}}}}}]}}}",
+          "filters": "[{\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_GPU/pruduto\"}},\"Property\":\"Name\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"subquery\",\"Expression\":{\"Subquery\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_GPU/pruduto\",\"Type\":0},{\"Name\":\"t\",\"Entity\":\"tab_fato\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Name\"},\"Name\":\"field\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"release_price\"}},\"Function\":0}}}],\"Top\":10}}},\"Type\":2},{\"Name\":\"d\",\"Entity\":\"dim_GPU/pruduto\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Name\"}}],\"Table\":{\"SourceRef\":{\"Source\":\"subquery\"}}}}}]},\"type\":\"TopN\",\"howCreated\":0,\"isHiddenInViewMode\":false}]",
+          "height": 346.00,
+          "width": 640.00,
+          "x": 640.00,
+          "y": 361.00,
+          "z": 2000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Análise de Mercado e Tendências",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "3322b3aaa73ab73a2341",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"1506f0ae29313c4a80d4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":17.48103186646434,\"y\":15.538694992412745,\"z\":0,\"width\":447.70864946889225,\"height\":689.5295902883156,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_calendario.Ano\",\"active\":true}],\"Y\":[{\"queryRef\":\"Medidas.Total de GPUs\"},{\"queryRef\":\"Medidas.Lancamentos Ano Anterior\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_calendario\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Ano\"},\"Name\":\"dim_calendario.Ano\",\"NativeReferenceName\":\"Ano\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Total de GPUs\"},\"Name\":\"Medidas.Total de GPUs\",\"NativeReferenceName\":\"Total de GPUs\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Lancamentos Ano Anterior\"},\"Name\":\"Medidas.Lancamentos Ano Anterior\",\"NativeReferenceName\":\"Lancamentos Ano Anterior\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Total de GPUs\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Evolução dos Lançamentos de GPUs por Ano'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 689.53,
+          "width": 447.71,
+          "x": 17.48,
+          "y": 15.54,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"759c4294b49361b877aa\",\"layouts\":[{\"id\":0,\"position\":{\"x\":489.4688922610015,\"y\":15.538694992412745,\"z\":1000,\"width\":774.9924127465856,\"height\":221.42640364188162,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"donutChart\",\"projections\":{\"Y\":[{\"queryRef\":\"Medidas.Total de GPUs\"}],\"Category\":[{\"queryRef\":\"dim_GPU/pruduto.Manufacturer\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"dim_GPU/pruduto\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Total de GPUs\"},\"Name\":\"Medidas.Total de GPUs\",\"NativeReferenceName\":\"Total de GPUs\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Property\":\"Manufacturer\"},\"Name\":\"dim_GPU/pruduto.Manufacturer\",\"NativeReferenceName\":\"Manufacturer1\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Total de GPUs\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Participação dos Fabricantes no Mercado'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 221.43,
+          "width": 774.99,
+          "x": 489.47,
+          "y": 15.54,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"9ad0786800e2de0c4a9c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":489.4688922610015,\"y\":469.07435508345975,\"z\":2000,\"width\":774.9924127465856,\"height\":235.99393019726858,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"columnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_GPU/pruduto.Manufacturer\",\"active\":true}],\"Y\":[{\"queryRef\":\"Medidas.Preco Medio\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_GPU/pruduto\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Manufacturer\"},\"Name\":\"dim_GPU/pruduto.Manufacturer\",\"NativeReferenceName\":\"Manufacturer\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Preco Medio\"},\"Name\":\"Medidas.Preco Medio\",\"NativeReferenceName\":\"Preco Medio\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Preco Medio\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"dataPoint\":[{\"properties\":{\"borderShow\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"vcObjects\":{\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 235.99,
+          "width": 774.99,
+          "x": 489.47,
+          "y": 469.07,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"a383149a434924a9a041\",\"layouts\":[{\"id\":0,\"position\":{\"x\":489.4688922610015,\"y\":236.96509863429438,\"z\":3000,\"width\":165.09863429438542,\"height\":232.10925644916537,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_calendario.Ano\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_calendario\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Ano\"},\"Name\":\"dim_calendario.Ano\",\"NativeReferenceName\":\"Ano\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Between'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]},\"vcObjects\":{\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#cccccc'\"}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 232.11,
+          "width": 165.10,
+          "x": 489.47,
+          "y": 236.97,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"d3d0647b20d581e39523\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1099.3626707132016,\"y\":236.96509863429438,\"z\":4000,\"width\":165.09863429438542,\"height\":232.10925644916537,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_GPU/pruduto.Manufacturer\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_GPU/pruduto\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Manufacturer\"},\"Name\":\"dim_GPU/pruduto.Manufacturer\",\"NativeReferenceName\":\"Manufacturer\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}],\"header\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Fabricante'\"}}}}}]},\"vcObjects\":{\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"border\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"padding\":[{\"properties\":{\"bottom\":{\"expr\":{\"Literal\":{\"Value\":\"10D\"}}},\"right\":{\"expr\":{\"Literal\":{\"Value\":\"10D\"}}},\"left\":{\"expr\":{\"Literal\":{\"Value\":\"10D\"}}}}}],\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":-0.2}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 232.11,
+          "width": 165.10,
+          "x": 1099.36,
+          "y": 236.97,
+          "z": 4000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Visão Executiva do Mercado de GPUs",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "665a12023cd3a3d0c506",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"5c750641ab00381a908a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":13.596358118361152,\"y\":155.38694992412746,\"z\":5000,\"width\":1248.9226100151743,\"height\":552.5948406676782,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"lineStackedColumnComboChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_calendario.AnoMes\",\"active\":true}],\"Y\":[{\"queryRef\":\"Medidas.Total de GPUs\"}],\"Y2\":[{\"queryRef\":\"Medidas.Preco Medio\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_calendario\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"AnoMes\"},\"Name\":\"dim_calendario.AnoMes\",\"NativeReferenceName\":\"AnoMes\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Total de GPUs\"},\"Name\":\"Medidas.Total de GPUs\",\"NativeReferenceName\":\"Total de GPUs\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Preco Medio\"},\"Name\":\"Medidas.Preco Medio\",\"NativeReferenceName\":\"Preco Medio\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Total de GPUs\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Evolução de Preços e Lançamentos ao Longo do Tempo'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 552.59,
+          "width": 1248.92,
+          "x": 13.60,
+          "y": 155.39,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"6592fb0801937ccc96de\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"width\":100,\"height\":40,\"z\":0,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"actionButton\",\"drillFilterOtherVisuals\":true,\"objects\":{\"icon\":[{\"properties\":{\"shapeType\":{\"expr\":{\"Literal\":{\"Value\":\"'back'\"}}}},\"selector\":{\"id\":\"default\"}}]},\"vcObjects\":{\"visualLink\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"type\":{\"expr\":{\"Literal\":{\"Value\":\"'Back'\"}}}}}]}},\"howCreated\":\"InsertVisualButton\"}",
+          "filters": "[]",
+          "height": 40.00,
+          "width": 100.00,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"8f43cb4c74b67e97a480\",\"layouts\":[{\"id\":0,\"position\":{\"x\":451.5933232169932,\"y\":24.27921092564496,\"z\":2000,\"width\":203.94537177541727,\"height\":108.77086494688922,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Medidas.Preco Medio\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Preco Medio\"},\"Name\":\"Medidas.Preco Medio\",\"NativeReferenceName\":\"Preco Medio\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Preco Medio\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#cccccc'\"}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 108.77,
+          "width": 203.95,
+          "x": 451.59,
+          "y": 24.28,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"9f0c8e226b532b30dbd1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":39.81790591805737,\"y\":24.27921092564496,\"z\":1000,\"width\":205.88770864946886,\"height\":108.77086494688922,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Medidas.Total de GPUs\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Total de GPUs\"},\"Name\":\"Medidas.Total de GPUs\",\"NativeReferenceName\":\"Total de GPUs\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Total de GPUs\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#cccccc'\"}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 108.77,
+          "width": 205.89,
+          "x": 39.82,
+          "y": 24.28,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"a2209eb2e7c3d5db0856\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1023.6115326251896,\"y\":12.625189681335355,\"z\":6000,\"width\":238.90743550834597,\"height\":131.10773899848255,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_GPU/pruduto.Manufacturer\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_GPU/pruduto\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Manufacturer\"},\"Name\":\"dim_GPU/pruduto.Manufacturer\",\"NativeReferenceName\":\"Manufacturer\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{}}]},\"vcObjects\":{\"dropShadow\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Fabricante'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 131.11,
+          "width": 238.91,
+          "x": 1023.61,
+          "y": 12.63,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"bd5330cb54252d1d63ab\",\"layouts\":[{\"id\":0,\"position\":{\"x\":245.7056145675257,\"y\":24.27921092564496,\"z\":4000,\"width\":205.88770864946886,\"height\":108.77086494688922,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Medidas.Qtd Fabricantes\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Qtd Fabricantes\"},\"Name\":\"Medidas.Qtd Fabricantes\",\"NativeReferenceName\":\"Qtd Fabricantes\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Qtd Fabricantes\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#cccccc'\"}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 108.77,
+          "width": 205.89,
+          "x": 245.71,
+          "y": 24.28,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"c96c3f2cbc35c17acccd\",\"layouts\":[{\"id\":0,\"position\":{\"x\":655.5386949924118,\"y\":24.27921092564496,\"z\":3000,\"width\":205.88770864946886,\"height\":108.77086494688922,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Medidas.Receita Total Estimada\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"m\",\"Entity\":\"Medidas\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Receita Total Estimada\"},\"Name\":\"Medidas.Receita Total Estimada\",\"NativeReferenceName\":\"Receita Total Estimada\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Receita Total Estimada\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#cccccc'\"}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 108.77,
+          "width": 205.89,
+          "x": 655.54,
+          "y": 24.28,
+          "z": 3000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ],
+  "theme": "AccessibleCityPark"
+}

@@ -1,0 +1,113 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 56.25
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 732,
+            "y": 204.75
+          },
+          "nodeIndex": "dim_financeiro",
+          "nodeLineageTag": "7f870258-bdaa-46d6-832e-d9b73e714a15",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 55,
+            "y": 45.75
+          },
+          "nodeIndex": "dim_GPU/pruduto",
+          "nodeLineageTag": "d21de23b-767f-46f7-8d67-d2b7b9b02165",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 452,
+            "y": 33.75
+          },
+          "nodeIndex": "dim_process",
+          "nodeLineageTag": "f799d57b-1372-4988-857c-648e00a9e252",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 407,
+            "y": 275.75
+          },
+          "nodeIndex": "tab_fato",
+          "nodeLineageTag": "6a228bad-6ad8-4bbc-ab1b-0f5f035d3543",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 41,
+            "y": 386.75
+          },
+          "nodeIndex": "dim_fabricante",
+          "nodeLineageTag": "f7772b64-11f8-4c5b-8d31-df9363183987",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1024,
+            "y": 36.75
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "137901c1-28d3-43a0-aa82-30b4dd3758c3",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 694,
+            "y": 509.25
+          },
+          "nodeIndex": "dim_calendario",
+          "nodeLineageTag": "a40fcd67-6332-4750-91a7-c0e6bd4164ba",
+          "size": {
+            "height": 198,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

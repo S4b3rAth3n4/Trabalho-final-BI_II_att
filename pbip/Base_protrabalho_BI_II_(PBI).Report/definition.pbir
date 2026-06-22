@@ -1,0 +1,8 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Base_protrabalho_BI_II_(PBI).SemanticModel"
+    }
+  }
+}
